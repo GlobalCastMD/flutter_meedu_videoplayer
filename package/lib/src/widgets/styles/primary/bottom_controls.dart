@@ -69,7 +69,7 @@ class PrimaryBottomControls extends StatelessWidget {
     return Positioned(
       left: 5,
       right: 0,
-      bottom: 20,
+      bottom: 10,
       child: (responsive.height / responsive.width > 1)
           ? Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,

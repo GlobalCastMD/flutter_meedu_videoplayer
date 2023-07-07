@@ -933,6 +933,7 @@ class MeeduPlayerController {
 
   /// dispose de video_player controller
   Future<void> dispose() async {
+    await pause();
     _timer?.cancel();
     _timerForVolume?.cancel();
     _timerForGettingVolume?.cancel();

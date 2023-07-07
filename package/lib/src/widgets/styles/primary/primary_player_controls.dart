@@ -14,6 +14,7 @@ class PrimaryVideoPlayerControls extends StatelessWidget {
 
     return ControlsContainer(
       responsive: responsive,
+      preventVerticalDrag: true,
       child: Stack(
         alignment: Alignment.center,
         children: [
