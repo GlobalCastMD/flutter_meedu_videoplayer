@@ -1167,7 +1167,7 @@ class MeeduPlayerController {
   }
 
   double getAspectRatio() {
-    if (_videoPlayerController == null) {
+    if (_videoPlayerController == null || _videoPlayerController!.value.size.width == 0) {
       return 16 / 9;
     }
     return _videoPlayerController!.value.size.width /

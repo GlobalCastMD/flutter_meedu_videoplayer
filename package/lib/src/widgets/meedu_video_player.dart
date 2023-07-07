@@ -178,14 +178,14 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                             child: FittedBox(
                               clipBehavior: Clip.hardEdge,
                               fit: widget.controller.videoFit.value,
-                              child: AspectRatio(
-                                // width: videoWidth(
-                                //   _.videoPlayerController,
-                                // ),
-                                // height: videoHeight(
-                                //   _.videoPlayerController,
-                                // ),
-                                aspectRatio: _.getAspectRatio(),
+                              child: SizedBox(
+                                width: videoWidth(
+                                  _.videoPlayerController,
+                                ),
+                                height: videoHeight(
+                                  _.videoPlayerController,
+                                ),
+                                // aspectRatio: _.getAspectRatio(),
                                 // width: 640,
                                 // height: 480,
                                 child: _.videoPlayerController != null
