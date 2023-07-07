@@ -62,7 +62,7 @@ class MeeduPlayerController {
   final bool controlsEnabled;
   String? _errorText;
   String? get errorText => _errorText;
-  Widget? loadingWidget, header, bottomRight, customControls;
+  Widget? loadingWidget, header, bottomRight, customControls, overlay;
   final ControlsStyle controlsStyle;
   final bool pipEnabled;
 

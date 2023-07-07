@@ -40,6 +40,12 @@ class MeeduVideoPlayer extends StatefulWidget {
     Responsive responsive,
   )? customIcons;
 
+  final Widget Function(
+    BuildContext context,
+    MeeduPlayerController controller,
+    Responsive responsive,
+  )? overlay;
+
   ///[customControls] this only needed when controlsStyle is [ControlsStyle.custom]
   final Widget Function(
     BuildContext context,
@@ -69,6 +75,7 @@ class MeeduVideoPlayer extends StatefulWidget {
       this.header,
       this.bottomRight,
       this.customIcons,
+      this.overlay,
       this.customControls,
       this.customCaptionView,
       this.closedCaptionDistanceFromBottom = 40})
@@ -140,6 +147,10 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                         widget.bottomRight!(context, _, _.responsive);
                   }
 
+                  if (widget.overlay != null) {
+                    _.overlay = widget.overlay!(context, _, _.responsive);
+                  }
+
                   if (widget.customControls != null) {
                     _.customControls =
                         widget.customControls!(context, _, _.responsive);
@@ -204,6 +215,8 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                           SecondaryVideoPlayerControls(
                             responsive: _.responsive,
                           ),
+                        if (_.overlay != null)
+                          _.overlay!,
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.custom &&
                             _.customControls != null)
