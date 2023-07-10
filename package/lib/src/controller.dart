@@ -1014,17 +1014,16 @@ class MeeduPlayerController {
     if (fullscreen) {
       goToFullscreen(context);
     } else {
-      if (launchedAsFullScreen) {
-        if (UniversalPlatform.isWeb) {
-          screenManager.setWebFullScreen(false, this);
-        } else {
-          if (desktopOrWeb) {
-            screenManager.setWindowsFullScreen(false, this);
-          } else {
-            screenManager.setDefaultOverlaysAndOrientations();
-          }
-        }
+      if (UniversalPlatform.isWeb) {
+        screenManager.setWebFullScreen(false, this);
       } else {
+        if (desktopOrWeb) {
+          screenManager.setWindowsFullScreen(false, this);
+        } else {
+          screenManager.setDefaultOverlaysAndOrientations();
+        }
+      }
+      if (!launchedAsFullScreen){
         Navigator.pop(context);
       }
     }

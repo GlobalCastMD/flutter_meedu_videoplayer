@@ -34,7 +34,7 @@ class ScreenManager {
     await SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: overlays);
     if (UniversalPlatform.isIOS) {
-      AutoOrientation.portraitAutoMode();
+      // AutoOrientation.portraitAutoMode();
     }
   }
 
