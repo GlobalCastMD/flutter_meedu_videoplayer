@@ -85,9 +85,18 @@ class ScreenManager {
   Future<void> setFullScreenOverlaysAndOrientations({
     hideOverLays = true,
   }) async {
-    forceLandScapeInFullscreen
-        ? AutoOrientation.landscapeAutoMode(forceSensor: true)
-        : AutoOrientation.fullAutoMode();
+    // forceLandScapeInFullscreen
+    //     ? AutoOrientation.landscapeAutoMode(forceSensor: true)
+    //     : AutoOrientation.fullAutoMode();
+
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+      if (!forceLandScapeInFullscreen) ...[
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    ]);
 
     if (hideOverLays) {
       setOverlays(false);
