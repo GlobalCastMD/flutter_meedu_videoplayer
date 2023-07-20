@@ -53,6 +53,12 @@ class MeeduVideoPlayer extends StatefulWidget {
     Responsive responsive,
   )? customControls;
 
+  final Widget Function(
+    BuildContext context,
+    MeeduPlayerController controller,
+    Responsive responsive,
+  )? overlayControls;
+
   ///[customCaptionView] when a custom view for the captions is needed
   final Widget Function(BuildContext context, MeeduPlayerController controller,
       Responsive responsive, String text)? customCaptionView;
@@ -77,6 +83,7 @@ class MeeduVideoPlayer extends StatefulWidget {
       this.customIcons,
       this.overlays,
       this.customControls,
+      this.overlayControls,
       this.customCaptionView,
       this.closedCaptionDistanceFromBottom = 40})
       : super(key: key);
@@ -155,25 +162,21 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                     _.customControls =
                         widget.customControls!(context, _, _.responsive);
                   }
+
+                  if (widget.overlayControls != null) {
+                    _.overlayControls = widget.overlayControls!(context, _, _.responsive);
+                  }
+
                   return ExcludeFocus(
                     excluding: _.excludeFocus,
                     child: Stack(
-                      // clipBehavior: Clip.hardEdge,
-                      // fit: StackFit.,
                       alignment: Alignment.center,
                       children: [
                         RxBuilder(
-                            //observables: [_.videoFit],
                             (__) {
                           _.dataStatus.status.value;
                           _.customDebugPrint(
                               "Fit is ${widget.controller.videoFit.value}");
-                          // customDebugPrint(
-                          //     "constraints.maxWidth ${constraints.maxWidth}");
-                          // _.customDebugPrint(
-                          //     "width ${videoWidth(_.videoPlayerController, constraints.maxWidth)}");
-                          // customDebugPrint(
-                          //     "videoPlayerController ${_.videoPlayerController}");
                           return Positioned.fill(
                             child: FittedBox(
                               clipBehavior: Clip.hardEdge,
@@ -185,9 +188,6 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                                 height: videoHeight(
                                   _.videoPlayerController,
                                 ),
-                                // aspectRatio: _.getAspectRatio(),
-                                // width: 640,
-                                // height: 480,
                                 child: _.videoPlayerController != null
                                     ? VideoPlayer(_.videoPlayerController!)
                                     : Container(),
@@ -224,7 +224,9 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                           ControlsContainer(
                             responsive: _.responsive,
                             child: _.customControls!,
-                          )
+                          ),
+                        if (_.overlayControls != null)
+                          _.overlayControls!,
                       ],
                     ),
                   );
