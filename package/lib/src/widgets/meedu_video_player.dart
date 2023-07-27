@@ -69,6 +69,8 @@ class MeeduVideoPlayer extends StatefulWidget {
   /// displayed at an optimal position that doesn't obstruct other important
   /// elements of the video player interface.
   final double closedCaptionDistanceFromBottom;
+  final bool? playerSliderControls;
+
   const MeeduVideoPlayer(
       {Key? key,
       required this.controller,
@@ -78,7 +80,8 @@ class MeeduVideoPlayer extends StatefulWidget {
       this.overlays,
       this.customControls,
       this.customCaptionView,
-      this.closedCaptionDistanceFromBottom = 40})
+      this.closedCaptionDistanceFromBottom = 40,
+        this.playerSliderControls})
       : super(key: key);
 
   @override
@@ -207,16 +210,19 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                             _.controlsStyle == ControlsStyle.primary)
                           PrimaryVideoPlayerControls(
                             responsive: _.responsive,
+                            playerSliderVisibility : widget.playerSliderControls ?? true,
                           ),
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.primaryList)
                           PrimaryListVideoPlayerControls(
                             responsive: _.responsive,
+                            playerSliderVisibility : widget.playerSliderControls ?? true,
                           ),
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.secondary)
                           SecondaryVideoPlayerControls(
                             responsive: _.responsive,
+                            playerSliderVisibility : widget.playerSliderControls ?? true,
                           ),
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.custom &&

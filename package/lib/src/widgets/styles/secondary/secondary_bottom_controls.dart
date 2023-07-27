@@ -5,7 +5,8 @@ import 'package:universal_platform/universal_platform.dart';
 
 class SecondaryBottomControls extends StatelessWidget {
   final Responsive responsive;
-  const SecondaryBottomControls({Key? key, required this.responsive})
+  final bool playerSliderVisibility;
+  const SecondaryBottomControls({Key? key, required this.responsive , required this.playerSliderVisibility })
       : super(key: key);
 
   @override
@@ -24,9 +25,13 @@ class SecondaryBottomControls extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Transform.translate(
-            offset: const Offset(0, 4),
-            child: const PlayerSlider(),
+          Visibility(
+            visible: playerSliderVisibility,
+            child:
+            Transform.translate(
+              offset: const Offset(0, 4),
+              child: const PlayerSlider(),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

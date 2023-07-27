@@ -7,8 +7,8 @@ import 'primary_player_controls.dart';
 
 class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
   const PrimaryListVideoPlayerControls(
-      {Key? key, required Responsive responsive})
-      : super(key: key, responsive: responsive);
+      {Key? key, required Responsive responsive , required bool playerSliderVisibility})
+      : super(key: key, responsive: responsive , playerSliderVisibility: playerSliderVisibility);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class PrimaryListVideoPlayerControls extends PrimaryVideoPlayerControls {
           ),
 
           PrimaryBottomControls(
-            responsive: responsive,
+              responsive: responsive, playerSliderVisibility : playerSliderVisibility
           ),
         ],
       ),

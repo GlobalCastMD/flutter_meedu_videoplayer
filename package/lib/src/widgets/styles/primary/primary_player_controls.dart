@@ -5,7 +5,8 @@ import 'package:flutter_meedu_videoplayer/src/widgets/styles/primary/bottom_cont
 
 class PrimaryVideoPlayerControls extends StatelessWidget {
   final Responsive responsive;
-  const PrimaryVideoPlayerControls({Key? key, required this.responsive})
+  final bool playerSliderVisibility;
+  const PrimaryVideoPlayerControls({Key? key, required this.responsive , required this.playerSliderVisibility})
       : super(key: key);
 
   @override
@@ -86,7 +87,7 @@ class PrimaryVideoPlayerControls extends StatelessWidget {
           ),
 
           PrimaryBottomControls(
-            responsive: responsive,
+              responsive: responsive, playerSliderVisibility : playerSliderVisibility
           ),
         ],
       ),
