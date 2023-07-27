@@ -5,7 +5,8 @@ import 'package:flutter_meedu_videoplayer/src/widgets/styles/secondary/secondary
 
 class SecondaryVideoPlayerControls extends StatelessWidget {
   final Responsive responsive;
-  const SecondaryVideoPlayerControls({Key? key, required this.responsive})
+  final bool playerSliderVisibility;
+  const SecondaryVideoPlayerControls({Key? key, required this.responsive, required this.playerSliderVisibility})
       : super(key: key);
 
   @override
@@ -24,7 +25,7 @@ class SecondaryVideoPlayerControls extends StatelessWidget {
               child: _.header!,
             ),
           SecondaryBottomControls(
-            responsive: responsive,
+              responsive: responsive, playerSliderVisibility : playerSliderVisibility
           ),
         ],
       ),

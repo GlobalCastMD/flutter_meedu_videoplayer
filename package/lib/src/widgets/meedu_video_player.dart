@@ -53,6 +53,12 @@ class MeeduVideoPlayer extends StatefulWidget {
     Responsive responsive,
   )? customControls;
 
+  final Widget Function(
+    BuildContext context,
+    MeeduPlayerController controller,
+    Responsive responsive,
+  )? overlayControls;
+
   ///[customCaptionView] when a custom view for the captions is needed
   final Widget Function(BuildContext context, MeeduPlayerController controller,
       Responsive responsive, String text)? customCaptionView;
@@ -69,6 +75,8 @@ class MeeduVideoPlayer extends StatefulWidget {
   /// displayed at an optimal position that doesn't obstruct other important
   /// elements of the video player interface.
   final double closedCaptionDistanceFromBottom;
+  final bool? playerSliderControls;
+
   const MeeduVideoPlayer(
       {Key? key,
       required this.controller,
@@ -77,8 +85,10 @@ class MeeduVideoPlayer extends StatefulWidget {
       this.customIcons,
       this.overlays,
       this.customControls,
+      this.overlayControls,
       this.customCaptionView,
-      this.closedCaptionDistanceFromBottom = 40})
+      this.closedCaptionDistanceFromBottom = 40,
+      this.playerSliderControls})
       : super(key: key);
 
   @override
@@ -155,6 +165,11 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                     _.customControls =
                         widget.customControls!(context, _, _.responsive);
                   }
+
+                  if (widget.overlayControls != null) {
+                    _.overlayControls = widget.overlayControls!(context, _, _.responsive);
+                  }
+
                   return ExcludeFocus(
                     excluding: _.excludeFocus,
                     child: Stack(
@@ -195,8 +210,7 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                             ),
                           );
                         }),
-                        if (_.overlays?.isNotEmpty == true)
-                          ..._.overlays!,
+                        if (_.overlays?.isNotEmpty == true) ..._.overlays!,
                         ClosedCaptionView(
                           responsive: _.responsive,
                           distanceFromBottom:
@@ -207,16 +221,22 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                             _.controlsStyle == ControlsStyle.primary)
                           PrimaryVideoPlayerControls(
                             responsive: _.responsive,
+                            playerSliderVisibility:
+                                widget.playerSliderControls ?? true,
                           ),
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.primaryList)
                           PrimaryListVideoPlayerControls(
                             responsive: _.responsive,
+                            playerSliderVisibility:
+                                widget.playerSliderControls ?? true,
                           ),
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.secondary)
                           SecondaryVideoPlayerControls(
                             responsive: _.responsive,
+                            playerSliderVisibility:
+                                widget.playerSliderControls ?? true,
                           ),
                         if (_.controlsEnabled &&
                             _.controlsStyle == ControlsStyle.custom &&
@@ -224,7 +244,9 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                           ControlsContainer(
                             responsive: _.responsive,
                             child: _.customControls!,
-                          )
+                          ),
+                        if (_.overlayControls != null)
+                          _.overlayControls!,
                       ],
                     ),
                   );
