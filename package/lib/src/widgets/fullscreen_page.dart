@@ -26,8 +26,13 @@ class _MeeduPlayerFullscreenPageState extends State<MeeduPlayerFullscreenPage> {
       },
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: MeeduVideoPlayer(
-          controller: widget.controller,
+        body: RxBuilder(
+          (_) {
+            widget.controller.playerStatus.status.value;
+            return MeeduVideoPlayer(
+              controller: widget.controller,
+            );
+          },
         ),
       ),
     );

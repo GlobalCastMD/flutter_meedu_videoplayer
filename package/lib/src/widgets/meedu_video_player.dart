@@ -155,7 +155,7 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                   }
 
                   if (widget.overlays != null) {
-                    _.overlays = widget.overlays!(context, _, _.responsive);
+                    _.overlays = widget.overlays;
                   }
 
                   if (widget.customControls != null) {
@@ -164,7 +164,7 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                   }
 
                   if (widget.overlayControls != null) {
-                    _.overlayControls = widget.overlayControls!(context, _, _.responsive);
+                    _.overlayControls = widget.overlayControls!;
                   }
 
                   return ExcludeFocus(
@@ -195,8 +195,8 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                             ),
                           );
                         }),
-                        if (_.overlays?.isNotEmpty == true)
-                          ..._.overlays!,
+                        if (_.overlays != null)
+                          ..._.overlays!(context, _, _.responsive),
                         ClosedCaptionView(
                           responsive: _.responsive,
                           distanceFromBottom:
@@ -226,7 +226,7 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                             child: _.customControls!,
                           ),
                         if (_.overlayControls != null)
-                          _.overlayControls!,
+                          _.overlayControls!(context, _, _.responsive),
                       ],
                     ),
                   );
