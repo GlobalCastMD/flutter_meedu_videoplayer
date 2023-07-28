@@ -74,11 +74,17 @@ class PrimaryBottomControls extends StatelessWidget {
           ? Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,
               runAlignment: WrapAlignment.spaceAround,
-              children: [durationControls, otherControls],
+              children: [
+                durationControls,
+                otherControls,
+              ],
             )
           : Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Expanded(child: durationControls), otherControls],
+              children: [
+                Expanded(child: durationControls), 
+                otherControls,
+              ],
             ),
     );
   }

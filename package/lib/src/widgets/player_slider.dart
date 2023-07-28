@@ -50,18 +50,18 @@ class PlayerSlider extends StatelessWidget {
                   min: 0,
                   divisions: _.duration.value.inSeconds,
                   value: value.toDouble(),
-                  onChangeStart: (v) {
+                  onChangeStart: _.enabledControls.seekBar ? (v) {
                     _.onChangedSliderStart();
-                  },
-                  onChangeEnd: (v) {
+                  } : null,
+                  onChangeEnd: _.enabledControls.seekBar ? (v) {
                     _.onChangedSliderEnd();
                     _.seekTo(
                       Duration(seconds: v.floor()),
                     );
-                  },
+                  } : null,
                   label: printDuration(_.sliderPosition.value),
                   max: max,
-                  onChanged: _.onChangedSlider,
+                  onChanged: _.enabledControls.seekBar ? _.onChangedSlider : null,
                 ),
               ),
             );

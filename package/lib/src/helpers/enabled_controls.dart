@@ -40,6 +40,9 @@ class EnabledControls {
   ///on desktop, space Key toggle from playing to pause and pause to playing
   final bool spaceKeyTogglePlay;
 
+  //on all platforms, enable/disable seekbar
+  final bool seekBar;
+
   const EnabledControls(
       {this.desktopTapToPlayAndPause = true,
       this.escapeKeyCloseFullScreen = true,
@@ -53,7 +56,8 @@ class EnabledControls {
       this.brightnessSwipes = true,
       this.doubleTapToSeek = true,
       this.desktopDoubleTapToFullScreen = true,
-      this.onLongPressSpeedUp = false});
+      this.onLongPressSpeedUp = false,
+      this.seekBar = true});
 
   EnabledControls copyWith(
       {bool? desktopTapToPlayAndPause,
@@ -68,7 +72,8 @@ class EnabledControls {
       bool? numPadDecimalKeyToggleFit,
       bool? enterKeyOpensFullScreen,
       bool? spaceKeyTogglePlay,
-      bool? onLongPressSpeedUp}) {
+      bool? onLongPressSpeedUp,
+      bool? seekBar}) {
     return EnabledControls(
         desktopTapToPlayAndPause:
             desktopTapToPlayAndPause ?? this.desktopTapToPlayAndPause,
@@ -87,6 +92,7 @@ class EnabledControls {
         enterKeyOpensFullScreen:
             enterKeyOpensFullScreen ?? this.enterKeyOpensFullScreen,
         spaceKeyTogglePlay: spaceKeyTogglePlay ?? this.spaceKeyTogglePlay,
-        onLongPressSpeedUp: onLongPressSpeedUp ?? this.onLongPressSpeedUp);
+        onLongPressSpeedUp: onLongPressSpeedUp ?? this.onLongPressSpeedUp,
+        seekBar: seekBar ?? this.seekBar);
   }
 }
