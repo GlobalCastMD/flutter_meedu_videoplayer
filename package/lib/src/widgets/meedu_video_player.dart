@@ -173,22 +173,13 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                   return ExcludeFocus(
                     excluding: _.excludeFocus,
                     child: Stack(
-                      // clipBehavior: Clip.hardEdge,
-                      // fit: StackFit.,
                       alignment: Alignment.center,
                       children: [
                         RxBuilder(
-                            //observables: [_.videoFit],
                             (__) {
                           _.dataStatus.status.value;
                           _.customDebugPrint(
                               "Fit is ${widget.controller.videoFit.value}");
-                          // customDebugPrint(
-                          //     "constraints.maxWidth ${constraints.maxWidth}");
-                          // _.customDebugPrint(
-                          //     "width ${videoWidth(_.videoPlayerController, constraints.maxWidth)}");
-                          // customDebugPrint(
-                          //     "videoPlayerController ${_.videoPlayerController}");
                           return Positioned.fill(
                             child: FittedBox(
                               clipBehavior: Clip.hardEdge,
@@ -200,9 +191,6 @@ class _MeeduVideoPlayerState extends State<MeeduVideoPlayer> {
                                 height: videoHeight(
                                   _.videoPlayerController,
                                 ),
-                                // aspectRatio: _.getAspectRatio(),
-                                // width: 640,
-                                // height: 480,
                                 child: _.videoPlayerController != null
                                     ? VideoPlayer(_.videoPlayerController!)
                                     : Container(),
