@@ -75,6 +75,7 @@ class MeeduPlayerController {
   )? overlayControls;
   final ControlsStyle controlsStyle;
   final bool pipEnabled;
+  final bool allowBackgroundPlayback;
 
   String? tag;
 
@@ -335,6 +336,7 @@ class MeeduPlayerController {
     this.durations = const Durations(),
     this.onVideoPlayerClosed,
     BoxFit? initialFit,
+    this.allowBackgroundPlayback = false,
   }) : _videoFit = Rx(initialFit ?? BoxFit.fill) {
     if (responsive != null) {
       this.responsive = responsive;
@@ -403,7 +405,8 @@ class MeeduPlayerController {
   }
 
   /// create a new video_player controller
-  VideoPlayerController _createVideoController(DataSource dataSource) {
+  VideoPlayerController _createVideoController(DataSource dataSource, bool? allowBackgroundPlayback) {
+    allowBackgroundPlayback ??= this.allowBackgroundPlayback;
     VideoPlayerController tmp; // create a new video controller
     //dataSource = await checkIfm3u8AndNoLinks(dataSource);
     if (dataSource.type == DataSourceType.asset) {
@@ -411,6 +414,9 @@ class MeeduPlayerController {
         dataSource.source!,
         closedCaptionFile: dataSource.closedCaptionFile,
         package: dataSource.package,
+        videoPlayerOptions: VideoPlayerOptions(
+          allowBackgroundPlayback: allowBackgroundPlayback,
+        ),
       );
     } else if (dataSource.type == DataSourceType.network) {
       tmp = VideoPlayerController.network(
@@ -418,12 +424,18 @@ class MeeduPlayerController {
         formatHint: dataSource.formatHint,
         closedCaptionFile: dataSource.closedCaptionFile,
         httpHeaders: dataSource.httpHeaders ?? {},
+        videoPlayerOptions: VideoPlayerOptions(
+          allowBackgroundPlayback: allowBackgroundPlayback,
+        ),
       );
     } else {
       tmp = VideoPlayerController.file(
         dataSource.file!,
         closedCaptionFile: dataSource.closedCaptionFile,
         httpHeaders: dataSource.httpHeaders ?? {},
+        videoPlayerOptions: VideoPlayerOptions(
+          allowBackgroundPlayback: allowBackgroundPlayback,
+        ),
       );
     }
     return tmp;
@@ -515,6 +527,7 @@ class MeeduPlayerController {
     DataSource dataSource, {
     bool autoplay = true,
     bool looping = false,
+    bool? allowBackgroundPlayback,
     Duration seekTo = Duration.zero,
   }) async {
     try {
@@ -531,7 +544,7 @@ class MeeduPlayerController {
       // save the current video controller to be disposed in the next frame
       VideoPlayerController? oldController = _videoPlayerController;
 
-      _videoPlayerController = _createVideoController(dataSource);
+      _videoPlayerController = _createVideoController(dataSource, allowBackgroundPlayback);
       await _videoPlayerController!.initialize();
 
       if (oldController != null) {
