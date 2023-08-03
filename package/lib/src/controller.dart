@@ -62,8 +62,17 @@ class MeeduPlayerController {
   final bool controlsEnabled;
   String? _errorText;
   String? get errorText => _errorText;
-  Widget? loadingWidget, header, bottomRight, customControls, overlayControls;
-  List<Widget>? overlays;
+  Widget? loadingWidget, header, bottomRight, customControls;
+  List<Widget> Function(
+    BuildContext context,
+    MeeduPlayerController controller,
+    Responsive responsive,
+  )? overlays;
+  Widget Function(
+    BuildContext context,
+    MeeduPlayerController controller,
+    Responsive responsive,
+  )? overlayControls;
   final ControlsStyle controlsStyle;
   final bool pipEnabled;
 
