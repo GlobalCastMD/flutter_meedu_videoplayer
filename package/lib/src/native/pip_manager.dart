@@ -29,7 +29,13 @@ class PipManager {
   }
 
   Future<void> _getOSVersion() async {
-    final os0 = await _channel.invokeMethod<String>('osVersion');
+    var os0 = await _channel.invokeMethod<String>('osVersion');
+
+    List<String>? parts = os0?.split('.');
+    if (parts!.length > 2) {
+      os0 = parts.isNotEmpty ? parts[0] : "0";
+    }
+
     final os = double.parse(os0!);
     _osVersion.complete(os);
   }
